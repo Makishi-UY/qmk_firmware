@@ -74,3 +74,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   )
 };
+
+#ifdef OLED_ENABLE
+
+static void render_layer(void) {
+    oled_write_P(PSTR("Layer: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_ln_P(PSTR("QWERTY"), false);
+            break;
+        case _NUMERIC:
+            oled_write_ln_P(PSTR("NUMERIC"), false);
+            break;
+        case _FKEYS:
+            oled_write_ln_P(PSTR("F-KEYS"), false);
+            break;
+        case _ADJUST:
+            oled_write_ln_P(PSTR("ADJUST"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("???"), false);
+            break;
+    }
+}
+
+// Active modifiers are drawn inverted
+static void render_mods(void) {
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    oled_write_P(PSTR("Mods:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("SFT"), mods & MOD_MASK_SHIFT);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("CTL"), mods & MOD_MASK_CTRL);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("ALT"), mods & MOD_MASK_ALT);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("GUI"), mods & MOD_MASK_GUI);
+    oled_advance_page(true);
+}
+
+static void render_locks(void) {
+    led_t leds = host_keyboard_led_state();
+    oled_write_P(PSTR("Lock: "), false);
+    oled_write_P(PSTR("CAPS"), leds.caps_lock);
+    oled_advance_page(true);
+}
+
+bool oled_task_user(void) {
+    if (!is_keyboard_master()) {
+        return true; // let the keyboard draw the logo on the right half
+    }
+    render_layer();
+    render_mods();
+    render_locks();
+    oled_advance_page(true); // keep the last line blank
+    return false;
+}
+
+#endif
