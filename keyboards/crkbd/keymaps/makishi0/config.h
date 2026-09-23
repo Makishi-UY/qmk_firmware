@@ -47,3 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 #endif
+
+// Send typing speed, modifiers and Caps Lock to the right half so Luna can react
+#define SPLIT_WPM_ENABLE
+#define SPLIT_MODS_ENABLE
+#define SPLIT_LED_STATE_ENABLE
