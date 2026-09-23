@@ -207,6 +207,25 @@ static void render_right(void) {
             break;
     }
 
+    oled_set_cursor(0, 6);
+    oled_write_P(PSTR("OS"), false);
+    oled_set_cursor(0, 7);
+    switch (detected_host_os()) {
+        case OS_MACOS:
+        case OS_IOS:
+            oled_write_P(PSTR("Mac"), false);
+            break;
+        case OS_WINDOWS:
+            oled_write_P(PSTR("Win"), false);
+            break;
+        case OS_LINUX:
+            oled_write_P(PSTR("Linux"), false);
+            break;
+        default:
+            oled_write_P(PSTR("..."), false);
+            break;
+    }
+
     render_luna(frame, wpm);
 }
 

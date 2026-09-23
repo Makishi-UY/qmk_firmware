@@ -48,8 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
-// Send typing speed, layer, modifiers and Caps Lock to the right half for its screen
+// Send typing speed, layer, modifiers, Caps Lock and detected OS to the right half for its screen
 #define SPLIT_WPM_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_LED_STATE_ENABLE
+#define SPLIT_DETECTED_OS_ENABLE

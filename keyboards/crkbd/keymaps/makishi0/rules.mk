@@ -6,3 +6,4 @@
 RGBLIGHT_ENABLE = no        # No LEDs on this board
 OLED_ENABLE = yes
 WPM_ENABLE = yes
+OS_DETECTION_ENABLE = yes
